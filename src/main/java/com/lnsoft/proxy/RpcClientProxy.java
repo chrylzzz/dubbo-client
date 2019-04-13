@@ -67,6 +67,12 @@ public class RpcClientProxy {
                                     @Override
                                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                                         ChannelPipeline pipeline = socketChannel.pipeline();
+
+//                            pipeline.addLast("frameDecoder",new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,0,));
+//                            pipeline.addLast("frameEncoder",new LengthFieldPrepender(4));
+//                            pipeline.addLast("encoder",new ObjectEncoder());
+//                            pipeline.addLast("decoder",new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.));
+
                                         //百度,第三个参数开始：百度的4,0,4
                                         pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
                                         pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
