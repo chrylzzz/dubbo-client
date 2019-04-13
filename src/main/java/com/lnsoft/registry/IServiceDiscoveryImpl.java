@@ -33,13 +33,17 @@ public class IServiceDiscoveryImpl implements IServiceDiscovery {
         curatorFramework.start();
     }
 
+    /**
+     * 订阅：doSubscribe
+     * 监听：lookUp
+     */
     @Override
     public String doSubscribe(String serviceName) {
         //  /registrys/com.lnsoft.IChrHello
         String path = ZkConfig.ZK_REGISTER_PATH + "/" + serviceName;
         try {
             //  /registrys/com.lnsoft.IChrHello--->List   urls --->
-            //url地址有多个（集群），需要监听和选择多个地址
+            //url地址有多个（集群），需要监听和选择多个地址，多个不同的地址（服务地址/dubbo发布的地址 集群），放在repos中
             //有两个功能，选择那个地址进行调用（选择功能，选择哪一个，负载均衡），看urls地址是否变化，是否上下线（监听功能，监听urls）
             repos = curatorFramework.getChildren().forPath(path);  //订阅 监听的功能     服务  urls
         } catch (Exception e) {
@@ -55,6 +59,10 @@ public class IServiceDiscoveryImpl implements IServiceDiscovery {
         return loadBalance.select(repos);
     }
 
+
+
+
+//    watch
     //监听功能：监听urls是否变化，就是活动是否上线/下线的监听
     private void lookUp(final String path) {
         PathChildrenCache childrenCache = new PathChildrenCache(curatorFramework, path, true);

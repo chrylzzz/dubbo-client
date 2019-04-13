@@ -93,4 +93,16 @@ public class RpcClientProxy {
                     return rpcProxyHandler.getResponse();
                 });
     }
+
+
+//    new InvocationHandler() {
+//        @Override
+//        public Object invoke (Object proxy, Method method, Object[]args) throws Throwable {
+//            return null;
+//        }
+//    }
+    //###############################//
+//    (proxy, method, args) -> {
+//
+//    }
 }
