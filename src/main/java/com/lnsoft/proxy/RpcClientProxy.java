@@ -17,7 +17,9 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import java.lang.reflect.Proxy;
 
 /**
- * 客户端往服务端连接并且发送数据
+ * （4）调用
+ * 与服务端交互：
+ * 客户端往服务端连接并且发送数据:
  * <p>
  * Created By Chr on 2019/4/12/0012.
  */
@@ -66,7 +68,7 @@ public class RpcClientProxy {
                                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                                         ChannelPipeline pipeline = socketChannel.pipeline();
                                         //百度,第三个参数开始：百度的4,0,4
-                                        pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0,4,0,4 ));
+                                        pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
                                         pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
                                         pipeline.addLast("encoder", new ObjectEncoder());
                                         //百度,第2个参数开始：百度的.cacheDisabled(null)
