@@ -60,12 +60,13 @@ public class IServiceDiscoveryImpl implements IServiceDiscovery {
     }
 
 
-
-
-//    watch
+    //    watch
     //监听功能：监听urls是否变化，就是活动是否上线/下线的监听
     private void lookUp(final String path) {
         PathChildrenCache childrenCache = new PathChildrenCache(curatorFramework, path, true);
+        /**
+         * Listener for PathChildrenCache changes
+         */
         PathChildrenCacheListener pathChildrenCacheListener = new PathChildrenCacheListener() {
             @Override
             public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
