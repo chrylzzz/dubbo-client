@@ -8,7 +8,10 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
 import java.lang.reflect.Proxy;
@@ -62,12 +65,12 @@ public class RpcClientProxy {
                                     @Override
                                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                                         ChannelPipeline pipeline = socketChannel.pipeline();
-                                        //百度
-//                    pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, ));
+                                        //百度,第三个参数开始：百度的4,0,4
+                                        pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0,4,0,4 ));
                                         pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
                                         pipeline.addLast("encoder", new ObjectEncoder());
-                                        //百度
-//                    pipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.));
+                                        //百度,第2个参数开始：百度的.cacheDisabled(null)
+                                        pipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
                                         pipeline.addLast(rpcProxyHandler);
                                     }
                                 });
