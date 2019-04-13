@@ -27,7 +27,7 @@ public class IServiceDiscoveryImpl implements IServiceDiscovery {
     public IServiceDiscoveryImpl() {
         //根据ZkConfig中的字符串初始化curatorFramework
         curatorFramework = CuratorFrameworkFactory.builder()
-                .connectString(ZkConfig.CONNECTION_STR)
+                .connectString(ZkConfig.CONNECTION_STR)//连接Zk
                 .sessionTimeoutMs(4000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 10)).build();
         curatorFramework.start();
@@ -38,7 +38,7 @@ public class IServiceDiscoveryImpl implements IServiceDiscovery {
      * 监听：lookUp
      */
     @Override
-    public String doSubscribe(String serviceName) {
+    public String doSubscribe(String serviceName) {//com.lnsoft.IChr
         //  /registrys/com.lnsoft.IChrHello
         String path = ZkConfig.ZK_REGISTER_PATH + "/" + serviceName;
         try {

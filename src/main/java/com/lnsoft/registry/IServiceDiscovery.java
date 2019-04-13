@@ -14,5 +14,5 @@ public interface IServiceDiscovery {
      * @return
      */
     //根据服务名称com.lnsoft.XXX   ---url地址 127.0.0.1:8080  Socket Netty
-    String doSubscribe(String serviceName);
+    String doSubscribe(String serviceName);//com.lnsoft.IChr
 }

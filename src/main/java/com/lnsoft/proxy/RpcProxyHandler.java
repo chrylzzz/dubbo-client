@@ -4,6 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
+ * （4）调用：获取服务端传过来的信息：
  * 与服务端交互：Netty需要的handler
  * 拿到服务端，传递到客户端的内容
  * <p>
