@@ -81,7 +81,12 @@ public class RpcClientProxy {
                                         /**
                                          * 通过handler进行数据io交互
                                          */
-                                        pipeline.addLast(rpcProxyHandler);//单例，保持同一个channel
+//                                        可知当添加到不同管线的是不同的实例时候，不同连接在检查时候h.added总是返回的false，所以不会抛出异常。
+//                                        当添加到不同管线的是同一个实例时候，由于是单例，所以第一个连接会把单例的对象的added设置为了true，所以其他连接检查时候发现没有添加@Sharable注解并且当前added为true则会抛出异常。
+//                                        正常情况下同一个ChannelHandler,的不同的实例会被添加到不同的Channel管理的管线里面的，但是如果你需要全局统计一些信息，比如所有连接报错次数（exceptionCaught）等，
+//                                        这时候你可能需要使用单例的ChannelHandler，需要注意的是这时候ChannelHandler上需要添加@Sharable注解
+
+                                                pipeline.addLast(rpcProxyHandler);
                                     }
                                 });
                         /**
