@@ -81,7 +81,7 @@ public class RpcClientProxy {
                                         /**
                                          * 通过handler进行数据io交互
                                          */
-                                        pipeline.addLast(rpcProxyHandler);
+                                        pipeline.addLast(rpcProxyHandler);//单例，保持同一个channel
                                     }
                                 });
                         /**
