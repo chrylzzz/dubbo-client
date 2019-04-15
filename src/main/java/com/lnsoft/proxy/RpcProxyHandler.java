@@ -5,8 +5,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * （4）调用：获取服务端传过来的信息：
- * 与服务端交互：Netty需要的handler
- * 拿到服务端，传递到客户端的内容
+ * 客户端自定义的handler：客户端与服务端进行交互，io交互，继承ChannelInboundHandlerAdapter
+ * 覆写channelRead。
+ * <p>
+ * 该类是客户端往服务端传送数据的--发送类
  * <p>
  * Created By Chr on 2019/4/12/0012.
  */
@@ -18,6 +20,11 @@ public class RpcProxyHandler extends ChannelInboundHandlerAdapter {
         return response;
     }
 
+    /**
+     * @param ctx 发送数据
+     * @param msg 接收数据
+     * @throws Exception
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 

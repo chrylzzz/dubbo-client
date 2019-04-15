@@ -36,7 +36,6 @@ public class RpcClientProxy {
         //这里诗级上市封装RpcRequest请求对象，然后通过Netty发送给服务端
         return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(),//
                 new Class<?>[]{interfaceClass}, (proxy, method, args) -> {
-
                     //封装RpcRuqest
                     RpcRequest rpcRequest = new RpcRequest();
                     rpcRequest.setClassName(method.getDeclaringClass().getName());
@@ -79,13 +78,18 @@ public class RpcClientProxy {
                                         pipeline.addLast("encoder", new ObjectEncoder());
                                         //百度,第2个参数开始：百度的.cacheDisabled(null)
                                         pipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+                                        /**
+                                         * 通过handler进行数据io交互
+                                         */
                                         pipeline.addLast(rpcProxyHandler);
                                     }
                                 });
-                        //连接服务 地址
+                        /**
+                         * 连接服务 地址host+port
+                         */
                         ChannelFuture future = bootstrap.connect(host, port).sync();
                         //将封装好的rpcRequest 对象写过去-》服务端数据的返回
-                        //写回到服务端
+                        //用netty方式将数据写回到服务端
                         future.channel().writeAndFlush(rpcRequest);
                         future.channel().closeFuture().sync();
                     } catch (Exception e) {
@@ -96,6 +100,7 @@ public class RpcClientProxy {
                         group.shutdownGracefully();
                     }
 
+                    //数据返回给动态代理的调用者
                     return rpcProxyHandler.getResponse();
                 });
     }
