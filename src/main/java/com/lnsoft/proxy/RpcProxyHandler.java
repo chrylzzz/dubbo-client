@@ -1,5 +1,6 @@
 package com.lnsoft.proxy;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -12,6 +13,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * <p>
  * Created By Chr on 2019/4/12/0012.
  */
+@ChannelHandler.Sharable//Handler is not a @Sharable handler, so can't be added or removed multiple times
 public class RpcProxyHandler extends ChannelInboundHandlerAdapter {
 
     private Object response;
