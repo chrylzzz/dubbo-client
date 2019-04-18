@@ -31,6 +31,7 @@ public class RpcClientProxy {
         this.serviceDiscovery = serviceDiscovery;
     }
 
+    //动态代理调用方法
     //一定要是通用的  interfaceClass IChrHello.class
     public <T> T create(final Class<T> interfaceClass) {
         //这里诗级上市封装RpcRequest请求对象，然后通过Netty发送给服务端
