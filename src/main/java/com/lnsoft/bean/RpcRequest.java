@@ -3,7 +3,7 @@ package com.lnsoft.bean;
 import java.io.Serializable;
 
 /**
- * 发送和接口的数据包装
+ * 发送和接口的数据包装:用来放rpc远程调用的参数，放客户端远程调用的方法的参数
  * <p>
  * Created By Chr on 2019/4/12/0012.
  */
