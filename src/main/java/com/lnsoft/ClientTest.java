@@ -6,6 +6,8 @@ import com.lnsoft.registry.IServiceDiscovery;
 import com.lnsoft.registry.IServiceDiscoveryImpl;
 
 /**
+ * 测试客户端去调用rpc远程接口，是否能实现
+ * <p>
  * Created By Chr on 2019/4/11/0011.
  */
 public class ClientTest {
