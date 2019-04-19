@@ -87,13 +87,23 @@ public class RpcClientProxy {
 //                                        正常情况下同一个ChannelHandler,的不同的实例会被添加到不同的Channel管理的管线里面的，但是如果你需要全局统计一些信息，比如所有连接报错次数（exceptionCaught）等，
 //                                        这时候你可能需要使用单例的ChannelHandler，需要注意的是这时候ChannelHandler上需要添加@Sharable注解
 
-                                                pipeline.addLast(rpcProxyHandler);
+                                        pipeline.addLast(rpcProxyHandler);
                                     }
                                 });
                         /**
                          * 连接服务 地址host+port
                          */
                         ChannelFuture future = bootstrap.connect(host, port).sync();
+                        //异步处理的返回
+//                        通过 isDone 方法来判断当前操作是否完成。
+//                        通过 isSuccess 方法来判断已完成的当前操作是否成功。
+//                        通过 getCause 方法来获取已完成的当前操作失败的原因。
+//                        通过 isCancelled 方法来判断已完成的当前操作是否被取消。
+//                        通过 addListener 方法来注册监听器，当操作已完成(isDone 方法返回完成)，将会通知指定的监听器；如果 Future 对象已完成，则理解通知指定的监听器。
+//                        if (future.isSuccess()){
+//                            System.out.println("绑定端口成功:"+port);
+//                        }
+
                         //将封装好的rpcRequest 对象写过去-》服务端数据的返回
                         //用netty方式将数据写回到服务端
                         future.channel().writeAndFlush(rpcRequest);
